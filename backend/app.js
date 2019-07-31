@@ -1,16 +1,17 @@
-const express = require('express');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
+const express = require('express')
+const cookieParser = require('cookie-parser')
+const logger = require('morgan')
+const response = require('./src/service/middlewares/response')
 
-const usersRouter = require('./src/routes/users');
+const app = express()
 
-const app = express();
+app.use(logger('dev'))
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+app.use(cookieParser())
+//app.use(response)
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+const usuarioRouter = require('./src/core/usuario/controller')
+app.use('/usuario', usuarioRouter)
 
-app.use('/users', usersRouter);
-
-module.exports = app;
+module.exports = app
