@@ -1,0 +1,35 @@
+version: "3.7"
+
+services:
+
+  mydb:
+    image: postgres
+    restart: always
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+    environment:
+      POSTGRES_PASSWORD: "admin"
+    networks:
+      - compose-network
+    volumes:
+      - ./data:/var/lib/postgresql/data
+
+  mypgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "diego.rugue@admin.com"
+      PGADMIN_DEFAULT_PASSWORD: "admin"
+    ports:
+      - 80:80
+    networks:
+      - compose-network
+    depends_on:
+      - mydb
+
+networks: 
+  compose-network:
+    driver: bridge
