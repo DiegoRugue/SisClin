@@ -9,4 +9,11 @@ router.get('/',
     })
 )
 
+router.get('/:id',
+    controller( async (req, res, next) => {
+        const data = await repository.getById(req.params.id)
+        res.status(200).send(data)
+    })
+)
+
 module.exports = router
