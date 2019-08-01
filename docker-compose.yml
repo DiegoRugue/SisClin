@@ -14,8 +14,8 @@ services:
       POSTGRES_PASSWORD: "admin"
     networks:
       - compose-network
-    volumes:
-      - ./data:/var/lib/postgresql/data
+    # volumes:
+    #   - ./data:/var/lib/postgresql/data
 
   mypgadmin:
     image: dpage/pgadmin4
