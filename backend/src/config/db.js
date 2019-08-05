@@ -1,29 +1,53 @@
 const { Pool } = require('pg')
 
 module.exports = {
-  exec: (procedure, params) => pool.query(`EXEC ${procedure}`, params),
   query: (text, params) => pool.query(text, params),
-  select
+  select,
+  exec
 }
 
 const pool = new Pool({
-    user: 'postgres',
-    host: '172.23.0.2',
-    database: 'postgres',
-    password: 'admin',
-    port: 5432
-  })
+  user: 'postgres',
+  host: '172.20.0.2',
+  database: 'sisclin',
+  password: 'admin',
+  port: 5432
+})
 
 function select(procedure, params) {
-  let text = `SELECT * FROM ${procedure}(`;
+  let text = `SELECT * FROM ${procedure}(`
 
-  for(let i = 0; i < params.length; i++) {
+  if (!params) {
+    text += ')'
+    return pool.query(text)
+  }
+
+  for (let i = 1; i <= params.length; i++) {
     text += `$${i}`
   }
 
   text += ')'
 
   return pool.query(text, params)
+
+}
+
+function exec(procedure, params) {
+  let text = `SELECT ${procedure}(`
+
+  if (!params) {
+    text += ')'
+    return pool.query(text)
+  }
+  
+  for (let i = 1; i <= params.length; i++) {
+    text += `$${i}`
+  }
+
+  text += ')'
+
+  return pool.query(text, params)
+
 }
 
 
