@@ -2,8 +2,8 @@
 
 @include mat-core();
 
-$app-primary: mat-palette($mat-green);
-$app-accent:  mat-palette($mat-yellow, A200, A100, A400);
+$app-primary: mat-palette($mat-blue);
+$app-accent:  mat-palette($mat-blue, A400);
 
 
 // Create the theme object (a Sass map containing all of the palettes).
