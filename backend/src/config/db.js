@@ -1,53 +1,20 @@
-const { Pool } = require('pg')
+const promise = require('bluebird')
 
-module.exports = {
-  query: (text, params) => pool.query(text, params),
-  select,
-  exec
+const initOptions = {
+  promiseLib: promise
 }
 
-const pool = new Pool({
-  user: 'postgres',
-  host: '172.20.0.2',
+const pgp = require('pg-promise')(initOptions)
+
+const cn = {
   database: 'sisclin',
+  user: 'postgres',
   password: 'admin',
+  host: '172.20.0.2',
   port: 5432
-})
-
-function select(procedure, params) {
-  let text = `SELECT * FROM ${procedure}(`
-
-  if (!params) {
-    text += ')'
-    return pool.query(text)
-  }
-
-  for (let i = 1; i <= params.length; i++) {
-    text += `$${i}`
-  }
-
-  text += ')'
-
-  return pool.query(text, params)
-
 }
 
-function exec(procedure, params) {
-  let text = `SELECT ${procedure}(`
+const db = pgp(cn);
 
-  if (!params) {
-    text += ')'
-    return pool.query(text)
-  }
-  
-  for (let i = 1; i <= params.length; i++) {
-    text += `$${i}`
-  }
-
-  text += ')'
-
-  return pool.query(text, params)
-
-}
-
+module.exports = db
 

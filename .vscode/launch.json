@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}\\backend\\src\\config\\db.js"
+            "program": "${workspaceFolder}/backend/bin/www"
         }
     ]
 }

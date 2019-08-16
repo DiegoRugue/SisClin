@@ -1,46 +1,47 @@
 const router = require('express').Router()
 const repository = require('./repository')
 const controller = require('../../service/middlewares/controller')
-const { error } = require('./service')
+const error = require('./service')
+const objVal = require('../../service/objVal')
 
-router.get('/', 
-    controller( async (req, res, next) => {
+router.get('/',
+    controller(async (req, res, next) => {
         const result = await repository.listarUsuarios()
-        res.status(200).send(result)
+        res.ok(result)
     })
 )
 
 router.get('/:id',
-    controller( async (req, res, next) => {
+    controller(async (req, res, next) => {
         const result = await repository.buscarUsuario(req.params.id)
-        res.status(200).send(result)
+        res.ok(result)
     })
 )
 
 router.post('/',
-    controller( async (req, res, next) => {
+    controller(async (req, res, next) => {
         const result = await repository.cadastrarUsuario(req.body)
-        if (result == 0) res.status(201).send() 
-        
-        res.status(400).send(error(result))
+        if (objVal(result) == 0) res.ok()
+
+        res.badRequest(error(result))
     })
 )
 
 router.put('/',
-    controller( async (req, res, next) => {
+    controller(async (req, res, next) => {
         const result = await repository.atualizarUsuario(req.body)
-        if (result == 0) res.status(201).send() 
-        
-        res.status(400).send(error(result))
+        if (objVal(result) == 0) res.ok()
+
+        res.badRequest(error(result))
     })
 )
 
 router.delete('/:id',
-    controller( async (req, res, next) => {
+    controller(async (req, res, next) => {
         const result = await repository.excluirUsuario(req.params.id)
-        if (result == 0) res.status(200).send()
+        if (objVal(result) == 0) res.ok()
 
-        res.status(400).send()
+        res.badRequest(result)
     })
 )
 

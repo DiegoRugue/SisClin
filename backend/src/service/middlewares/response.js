@@ -4,11 +4,12 @@ module.exports = (req, res, next) => {
         next();
     }
     res.badRequest = (message) => {
-        res.status(400).send(content);
+        res.status(400).send(message);
         next();
     }
     res.error = (message, code = 500) => {
         res.status(code).send({ error: message });
         next();
     }
+    next();
 }

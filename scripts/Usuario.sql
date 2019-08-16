@@ -39,11 +39,15 @@ CREATE OR REPLACE FUNCTION SP_ListarUsuarios()
  	Data..............: 01/08/2019
 	Ex................: SELECT * FROM SP_ListarUsuarios()
 */
-RETURNS TABLE(Nome varchar(100), Email varchar(100)) AS $$
+RETURNS TABLE(
+	"Id"     Usuario.Id%TYPE,
+    "Nome"   Usuario.Nome%TYPE, 
+    "Email"  Usuario.Email%TYPE
+) AS $$
      BEGIN
 
         RETURN QUERY 
-            SELECT u.Nome, u.Email 
+            SELECT u.Id, u.Nome, u.Email 
             FROM Usuario AS u;
 
 	END;
@@ -61,11 +65,15 @@ CREATE OR REPLACE FUNCTION SP_BuscarUsuario(pId integer)
  	Data..............: 01/08/2019
 	Ex................: SELECT * FROM SP_BuscarUsuario(1)
 */
-RETURNS TABLE(Nome varchar(100), Email varchar(100)) AS $$
+RETURNS TABLE(
+	"Id"     Usuario.Id%TYPE,
+    "Nome"   Usuario.Nome%TYPE, 
+    "Email"  Usuario.Email%TYPE
+) AS $$
      BEGIN
 
         RETURN QUERY 
-			SELECT u.Nome, u.Email 
+			SELECT u.Id, u.Nome, u.Email 
 			FROM Usuario AS u
 			WHERE pId = u.Id;
 
