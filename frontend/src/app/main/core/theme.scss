@@ -7,12 +7,11 @@ $app-accent:  mat-palette($mat-yellow, A200, A100, A400);
 
 
 // Create the theme object (a Sass map containing all of the palettes).
-$app-theme: mat-dark-theme($app-primary, $app-accent);
+$app-theme: mat-light-theme($app-primary, $app-accent);
 
 
 @include angular-material-theme($app-theme);
 
 body {
-    background-color: #292929;
-    color: white;
+    color: rgb(112, 112, 112);
 }
