@@ -23,9 +23,11 @@ export class UserService {
         return this.info.auth;
     }
 
-    public login(info: {user: string, passw: string}): boolean {
-        if ( info.user === '123' && info.passw === '123') 
-            return true;
-        return false;
+    public login(info: { user: string, passw: string }): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            if (info.user === '123' && info.passw === '123')
+                resolve(true);
+            reject(false);
+        });
     }
 }

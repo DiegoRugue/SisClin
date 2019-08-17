@@ -14,11 +14,18 @@
         flex-direction: inherit;
         margin-top: 40vh;
         transform: translateY(-50%);
+
+        button {
+            min-width: 90px;
+        }
+        mat-spinner {
+            height: 35px;
+        }
     }
 }
 
-mat-form-field {
-    margin-bottom: 40px;
+mat-form-field:nth-of-type(1) {
+    margin-bottom: 20px;
 }
 
 .image {
@@ -28,10 +35,19 @@ mat-form-field {
         height: 100%;    
         opacity: .6;
     }
-    
+   display: flex;
+   flex: 1; 
 }
 
-@media screen and (max-width: 600px) {
+.spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+@media screen and (max-width: 480px) {
     .login-container {
         width: 100%;
     }
