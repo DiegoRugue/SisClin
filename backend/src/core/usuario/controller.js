@@ -2,7 +2,6 @@ const router = require('express').Router()
 const repository = require('./repository')
 const controller = require('../../service/middlewares/controller')
 const error = require('./service')
-const objVal = require('../../service/objVal')
 const auth = require('../../service/auth')
 
 
@@ -26,7 +25,7 @@ router.get('/:id',
 router.post('/',
     controller(async (req, res, next) => {
         const result = await repository.cadastrarUsuario(req.body)
-        if (objVal(result) == 0) res.ok()
+        if (result.success()) res.ok()
 
         res.badRequest(error(result))
     })
@@ -35,7 +34,7 @@ router.post('/',
 router.put('/',
     controller(async (req, res, next) => {
         const result = await repository.atualizarUsuario(req.body)
-        if (objVal(result) == 0) res.ok()
+        if (result.success()) res.ok()
 
         res.badRequest(error(result))
     })
@@ -44,7 +43,7 @@ router.put('/',
 router.delete('/:id',
     controller(async (req, res, next) => {
         const result = await repository.excluirUsuario(req.params.id)
-        if (objVal(result) == 0) res.ok()
+        if (result.success()) res.ok()
 
         res.badRequest(result)
     })
