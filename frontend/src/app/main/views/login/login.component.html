@@ -8,7 +8,7 @@
                 <input 
                     matInput 
                     required
-                    [disabled]="loading"
+                    [disabled]="user.loading"
                     name="user"
                     placeholder="Usuário" 
                     [(ngModel)]="formData.user">
@@ -18,7 +18,7 @@
                 <input 
                     matInput
                     required
-                    [disabled]="loading"
+                    [disabled]="user.loading"
                     name="password"
                     placeholder="Senha" 
                     type="password" 
@@ -30,13 +30,15 @@
                     mat-raised-button 
                     color="primary"
                     (click)="login(loginForm)"
-                    [ngSwitch]="loading"
-                    [disabled]="loading">
+                    [ngSwitch]="user.loading"
+                    [disabled]="user.loading"
+                    [style.min-width]="user.loading ? '36px' : auto">
                     <span *ngSwitchCase="false">
                         ENTRAR
                     </span>
                     <span *ngSwitchCase="true">
-                        ENTRANDO
+                        <mat-spinner class="spinner" [diameter]="37">
+                        </mat-spinner>
                     </span>
                 </button>
             </div>
@@ -48,6 +50,6 @@
     </section>
 </article>
 
-<div class="spinner" *ngIf="loading">
+<div class="spinner" *ngIf="false">
     <mat-spinner></mat-spinner>
 </div>

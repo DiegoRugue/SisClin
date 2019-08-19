@@ -1,10 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/main/core/user/user.service';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'frontend';
+export class AppComponent implements OnInit {
+
+    constructor(
+        private user: UserService,
+        private router: Router
+    ) { }
+
+    ngOnInit() {
+        if(sessionStorage.narevSession){
+            if (this.user.isAuth()) {
+                this.user.refreshToken();
+            }
+        } else {
+            console.log('teste');
+            
+            this.router.navigate(['login'])
+            this.user.clearInfo();
+        }
+    }
 }
