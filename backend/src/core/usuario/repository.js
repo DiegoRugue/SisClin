@@ -1,5 +1,6 @@
 const db = require('../../config/db')
 
+
 module.exports = {
     listarUsuarios,
     buscarUsuario,
@@ -7,6 +8,7 @@ module.exports = {
     atualizarUsuario,
     excluirUsuario
 }
+
 
 async function listarUsuarios() {
     return await db.func('SP_ListarUsuarios', [])

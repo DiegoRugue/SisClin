@@ -1,8 +1,10 @@
 const express = require('express')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
+const config = require('./src/config/config')
 const response = require('./src/service/middlewares/response')
 const usuarioRouter = require('./src/core/usuario/controller')
+const loginRouter = require('./src/core/login/controller')
 
 const app = express()
 
@@ -14,5 +16,6 @@ app.use(response)
 
 
 app.use('/usuario', usuarioRouter)
+app.use('/login', loginRouter)
 
 module.exports = app

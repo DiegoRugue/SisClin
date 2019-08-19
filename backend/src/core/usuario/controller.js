@@ -3,8 +3,13 @@ const repository = require('./repository')
 const controller = require('../../service/middlewares/controller')
 const error = require('./service')
 const objVal = require('../../service/objVal')
+const auth = require('../../service/auth')
 
-router.get('/',
+
+module.exports = router
+
+
+router.get('/', auth.authozire,
     controller(async (req, res, next) => {
         const result = await repository.listarUsuarios()
         res.ok(result)
@@ -45,4 +50,3 @@ router.delete('/:id',
     })
 )
 
-module.exports = router

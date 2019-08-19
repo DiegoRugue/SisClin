@@ -140,4 +140,37 @@ RETURNS INTEGER AS $$
 
 $$ LANGUAGE 'plpgsql';
 
+CREATE OR REPLACE FUNCTION SP_BuscarUsuarioPorEmail(pEmail Usuario.Email%TYPE)
+/*
+	Documentação
+	Arquivo Fonte.....: Usuario.sql
+	Objetivo..........: Buscar um usuario por email
+	Autor.............: Diego Rugue
+ 	Data..............: 18/08/2019
+	Ex................: SELECT * FROM SP_BuscarUsuarioPorEmail(teste)
+*/
+RETURNS TABLE(
+	"Id"     Usuario.Id%TYPE,
+    "Nome"   Usuario.Nome%TYPE, 
+    "Email"  Usuario.Email%TYPE
+) AS $$
+     BEGIN
+
+        RETURN QUERY 
+			SELECT u.Id, u.Nome, u.Email 
+			FROM Usuario AS u
+			WHERE pEmail = u.Email;
+
+	END;
+	
+$$ LANGUAGE 'plpgsql';
+
+
+CREATE OR REPLACE FUNCTION SP_AtualizarUsuario(
+	pId integer, 
+    pNome varchar(100), 
+    pEmail varchar(100), 
+    pSenha varchar(100)
+)
+
 
