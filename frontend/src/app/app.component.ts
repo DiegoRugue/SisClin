@@ -15,15 +15,6 @@ export class AppComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        if(sessionStorage.narevSession){
-            if (this.user.isAuth()) {
-                this.user.refreshToken();
-            }
-        } else {
-            console.log('teste');
-            
-            this.router.navigate(['login'])
-            this.user.clearInfo();
-        }
+        
     }
 }

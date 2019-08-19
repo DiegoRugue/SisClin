@@ -46,10 +46,10 @@ export class ApiService {
     }
 
     query(params: any): string {
-        let query = '';
+        let query = '?';
         Object.keys(params)
             .forEach(key => {
-                query += `&${key}=${params[key]}`
+                query += `${key}=${params[key]}&`
             });
         return query;
     }

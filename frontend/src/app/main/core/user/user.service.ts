@@ -12,7 +12,7 @@ export class UserService {
         name: undefined,
         level: undefined,
         user: undefined,
-        auth: false
+        token: null
     };
 
     public loading = false;
@@ -20,7 +20,18 @@ export class UserService {
     constructor(
         private api: ApiService,
         private router: Router
-    ) { }
+    ) {
+        if (!sessionStorage.narevSession) {
+            if (this.isAuth()) {
+                this.refreshToken();
+            } else {
+                this.router.navigate(['login'])
+                this.clearInfo();
+            }
+        } else {
+            this.info = JSON.parse(sessionStorage.narevUserInfo);
+        }
+    }
 
     public userLevel(): number {
         return this.info.level;
@@ -35,6 +46,13 @@ export class UserService {
         if (info.user === '123' && info.passw === '123') {
             localStorage.narevUserToken = '546s4d5ssda546a5s54d45s6a';
             sessionStorage.narevSession = 'true';
+            sessionStorage.narevUserInfo = JSON.stringify({
+                id: 1,
+                name: 'João Das Quin',
+                level: 1,
+                user: 'joaqwuin@isdf.com',
+                token: '546s4d5ssda546a5s54d45s6a'
+            });
             this.router.navigate(['']);
         } else {
             this.clearInfo();
@@ -61,13 +79,13 @@ export class UserService {
 
     clearInfo(): void {
         localStorage.removeItem('narevUserToken');
-        localStorage.removeItem('narevSession');
+        sessionStorage.removeItem('narevSession');
         this.info = {
             id: undefined,
             name: undefined,
             level: undefined,
             user: undefined,
-            auth: false
+            token: null
         }
     }
 }
