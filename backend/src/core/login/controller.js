@@ -10,8 +10,8 @@ module.exports = router
 router.post('/',
     controller(async (req, res, next) => {
         const usuario = await repository.buscarPorEmail(req.body.email)
-        const hash = bcrypt.compareSync(usuario.Senha, req.body.senha)
-        if (!usuario || hash)
+
+        if (!usuario || !bcrypt.compareSync(req.body.senha, usuario.Senha))
             res.badRequest('Email ou senha inválidos')
 
         delete usuario.Senha
