@@ -8,17 +8,16 @@ const bcrypt = require('bcrypt')
 module.exports = router
 
 router.post('/',
-    controller( async (req, res, next) => {
-        const hashSenha = bcrypt.hashSync(req.body.senha, 10)
-        const result = await repository.login({...req.body, senha: hashSenha})
+    controller(async (req, res, next) => {
+        const usuario = await repository.buscarPorEmail(req.body.email)
+        const hash = bcrypt.compareSync(usuario.Senha, req.body.senha)
+        if (!usuario || hash)
+            res.badRequest('Email ou senha inválidos')
 
-        if (result.success()) {
-            const usuario = await repository.buscarPorEmail(req.body.email)
-            const token = await auth.generateToken(usuario)
+        delete usuario.Senha
+        
+        const token = await auth.generateToken(usuario)
+        res.ok({ token, content: usuario })
 
-            res.ok({ token, content: usuario })
-        } 
-
-        res.badRequest(error(result))
     })
 )
