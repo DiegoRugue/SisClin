@@ -28,12 +28,10 @@ export class LoginComponent implements OnInit {
         }
     }
 
-    login(form: NgForm) {
-        if (form.status === 'INVALID')
+    login(form: NgForm) {        
+        if (form.status === 'INVALID' || this.emailFormControl.status === 'INVALID')
             return;
         this.user.loading = true;
-        setTimeout(() => {
-            this.user.login(this.formData);
-        }, 1000);
+        this.user.login(this.formData);
     }
 }
