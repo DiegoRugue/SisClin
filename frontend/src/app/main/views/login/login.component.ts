@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormControl, Validators } from '@angular/forms';
 import { UserService } from 'src/app/main/core/user/user.service';
 import { Router } from '@angular/router';
 
@@ -10,7 +10,12 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-    formData = {email: null, senha: null};
+    formData = { email: null, senha: null };
+
+    emailFormControl = new FormControl('', [
+        Validators.required,
+        Validators.email,
+    ]);
 
     constructor(
         private user: UserService,
@@ -18,7 +23,7 @@ export class LoginComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        if (this.user.isAuth() && this.user.info.id) {
+        if (this.user.isAuth() && this.user.info.Id) {
             this.router.navigate(['']);
         }
     }
@@ -29,7 +34,6 @@ export class LoginComponent implements OnInit {
         this.user.loading = true;
         setTimeout(() => {
             this.user.login(this.formData);
-        }, 1000);    
+        }, 1000);
     }
-
 }

@@ -7,13 +7,7 @@ import { Router } from '@angular/router';
 })
 export class UserService {
 
-    public info = {
-        id: undefined,
-        name: undefined,
-        level: undefined,
-        user: undefined,
-        token: null
-    };
+    public info;
 
     public loading = false;
 
@@ -46,10 +40,7 @@ export class UserService {
             .http('POST', `login`, info)
             .subscribe(
                 res => {
-                    this.info = res.info;
-                    localStorage.narevUserToken = res.token;
-                    this.router.navigate([''])
-                    sessionStorage.narevSession = 'true';
+                    this.setInfo(res);
                 },
                 error => {
                     this.clearInfo();
@@ -64,10 +55,7 @@ export class UserService {
             .http('GET', `user/token/${localStorage.narevUserToken}`)
             .subscribe(
                 res => {
-                    this.info = res.info;
-                    localStorage.narevUserToken = res.token;
-                    this.router.navigate([''])
-                    sessionStorage.narevSession = 'true';
+                    this.setInfo(res);
                 },
                 error => {
                     this.clearInfo();
@@ -79,12 +67,14 @@ export class UserService {
     clearInfo(): void {
         localStorage.removeItem('narevUserToken');
         sessionStorage.removeItem('narevSession');
-        this.info = {
-            id: undefined,
-            name: undefined,
-            level: undefined,
-            user: undefined,
-            token: null
-        }
+        this.info = undefined
+    }
+
+    setInfo(res: any): void {
+        this.info = res.content;
+        localStorage.narevUserToken = res.token;
+        this.router.navigate([''])
+        sessionStorage.narevSession = 'true';
+        sessionStorage.narevUserInfo = JSON.stringify(this.info);
     }
 }

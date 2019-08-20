@@ -11,8 +11,15 @@
                     [disabled]="user.loading"
                     name="user"
                     type="email"
+                    [formControl]="emailFormControl"
                     placeholder="Email" 
                     [(ngModel)]="formData.email">
+                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                    Informe um email válido!
+                </mat-error>
+                <mat-error *ngIf="emailFormControl.hasError('required')">
+                    Email é <strong>obrigatório</strong>
+                  </mat-error>
             </mat-form-field>
             
             <mat-form-field>

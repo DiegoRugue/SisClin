@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
 
-    enviroment = 'localhost:3000/'
+    enviroment = 'http://localhost:3000/'
 
     constructor(
         private client: HttpClient
@@ -20,31 +20,18 @@ export class ApiService {
         switch (method) {
             case 'GET':
                 if (params) query = this.query(params);
-                request = this.client.get(`${this.enviroment}${route}${query}`);
-                break;
+                return this.client.get(`${this.enviroment}${route}${query}`);
+
             case 'POST':
-                request = this.client.post(`${this.enviroment}${route}`, params);
-                console.log(request);
-                
-                break;
+                return this.client.post(`${this.enviroment}${route}`, params);
+
             case 'PUT':
-                request = this.client.post(`${this.enviroment}${route}`, params);
-                break;
+                return this.client.post(`${this.enviroment}${route}`, params);
+
             case 'DELETE':
                 if (params) query = this.query(params);
-                request = this.client.get(`${this.enviroment}${route}${query}`);
-                break;
-
+                return this.client.get(`${this.enviroment}${route}${query}`);
         }
-
-
-        request.subscribe(
-            null,
-            error => {
-                console.error(error);
-            }
-        );
-        return request;
     }
 
     query(params: any): string {
