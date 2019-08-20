@@ -23,14 +23,16 @@ export class ApiService {
                 request = this.client.get(`${this.enviroment}${route}${query}`);
                 break;
             case 'POST':
-                request = this.client.post(`enviroment${route}`, params);
+                request = this.client.post(`${this.enviroment}${route}`, params);
+                console.log(request);
+                
                 break;
             case 'PUT':
-                request = this.client.post(`enviroment${route}`, params);
+                request = this.client.post(`${this.enviroment}${route}`, params);
                 break;
             case 'DELETE':
                 if (params) query = this.query(params);
-                request = this.client.get(`enviroment${route}${query}`);
+                request = this.client.get(`${this.enviroment}${route}${query}`);
                 break;
 
         }

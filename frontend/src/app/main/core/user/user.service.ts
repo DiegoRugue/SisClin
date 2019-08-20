@@ -41,22 +41,21 @@ export class UserService {
         return !!localStorage.narevUserToken;
     }
 
-    public login(info: { user: string, passw: string }): void {
-        // Sucesso ao logar
-        if (info.user === '123' && info.passw === '123') {
-            localStorage.narevUserToken = '546s4d5ssda546a5s54d45s6a';
-            sessionStorage.narevSession = 'true';
-            sessionStorage.narevUserInfo = JSON.stringify({
-                id: 1,
-                name: 'João Das Quin',
-                level: 1,
-                user: 'joaqwuin@isdf.com',
-                token: '546s4d5ssda546a5s54d45s6a'
-            });
-            this.router.navigate(['']);
-        } else {
-            this.clearInfo();
-        }
+    public login(info: { email: string, senha: string }): void {
+        this.api
+            .http('POST', `login`, info)
+            .subscribe(
+                res => {
+                    this.info = res.info;
+                    localStorage.narevUserToken = res.token;
+                    this.router.navigate([''])
+                    sessionStorage.narevSession = 'true';
+                },
+                error => {
+                    this.clearInfo();
+                    this.router.navigate(['login'])
+                }
+            );
         this.loading = false;
     }
 
@@ -68,13 +67,13 @@ export class UserService {
                     this.info = res.info;
                     localStorage.narevUserToken = res.token;
                     this.router.navigate([''])
+                    sessionStorage.narevSession = 'true';
                 },
                 error => {
                     this.clearInfo();
                     this.router.navigate(['login'])
                 }
             );
-        sessionStorage.narevSession = 'true';
     }
 
     clearInfo(): void {

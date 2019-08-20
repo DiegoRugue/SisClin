@@ -10,8 +10,9 @@
                     required
                     [disabled]="user.loading"
                     name="user"
-                    placeholder="Usuário" 
-                    [(ngModel)]="formData.user">
+                    type="email"
+                    placeholder="Email" 
+                    [(ngModel)]="formData.email">
             </mat-form-field>
             
             <mat-form-field>
@@ -22,7 +23,7 @@
                     name="password"
                     placeholder="Senha" 
                     type="password" 
-                    [(ngModel)]="formData.passw">
+                    [(ngModel)]="formData.senha">
             </mat-form-field>
 
             <div class="button-container">

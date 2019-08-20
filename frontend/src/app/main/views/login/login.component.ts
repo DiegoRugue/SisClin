@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-    formData = {user: null, passw: null};
+    formData = {email: null, senha: null};
 
     constructor(
         private user: UserService,
