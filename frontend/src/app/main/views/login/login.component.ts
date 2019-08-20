@@ -10,8 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-    formData = {user: null, passw: null};
-    loading = false;
+    formData = {email: null, senha: null};
 
     constructor(
         private user: UserService,
@@ -19,20 +18,17 @@ export class LoginComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        if (this.user.isAuth) 
+        if (this.user.isAuth() && this.user.info.id) {
             this.router.navigate(['']);
+        }
     }
 
     login(form: NgForm) {
         if (form.status === 'INVALID')
             return;
-        this.loading = true;
+        this.user.loading = true;
         setTimeout(() => {
-            this.user
-                .login(this.formData)
-                .then(() => console.log('deu'))
-                .catch(() => console.log('deu ruim'))
-                .finally(() => this.loading = false);
+            this.user.login(this.formData);
         }, 1000);    
     }
 
