@@ -3,7 +3,7 @@ module.exports = (controller) => {
         try {
             await controller(req, res, next)
         } catch (error) {
-            res.badRequest({ Error: error })
+            res.badRequest(error)
         }
     }
 }

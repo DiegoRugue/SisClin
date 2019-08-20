@@ -7,7 +7,7 @@ module.exports = {
 }
 
 async function generateToken(data) {
-    return await jwt.sign(data, { expiresIn: '1d' })
+    return await jwt.sign(data, global.SALT_KEY, { expiresIn: '1d' })
 }
 
 async function decodeToken(token) {

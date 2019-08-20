@@ -19,7 +19,8 @@ async function buscarUsuario(id) {
 }
 
 async function cadastrarUsuario(usuario) {
-    return await db.proc('SP_CadastrarUsuario', [usuario.nome, usuario.email, usuario.senha])
+    const teste = await db.proc('SP_CadastrarUsuario', [usuario.nome, usuario.email, usuario.senha])
+    return teste
 }
 
 async function atualizarUsuario(usuario) {

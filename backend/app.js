@@ -1,12 +1,13 @@
 const express = require('express')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
-const extensoes = require('./src/service/extensoes')
+const app = express()
 const response = require('./src/service/middlewares/response')
 const usuarioRouter = require('./src/core/usuario/controller')
 const loginRouter = require('./src/core/login/controller')
 
-const app = express()
+require('./src/service/extensoes')
+require('./src/config/config')
 
 app.use(logger('dev'))
 app.use(express.json())
