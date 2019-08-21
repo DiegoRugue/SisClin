@@ -3,6 +3,7 @@ const repository = require('./repository')
 const controller = require('../../service/middlewares/controller')
 const error = require('./service')
 const auth = require('../../service/auth')
+const bcrypt = require('bcrypt')
 
 
 module.exports = router
@@ -24,7 +25,9 @@ router.get('/:id',
 
 router.post('/',
     controller(async (req, res, next) => {
-        const result = await repository.cadastrarUsuario(req.body)
+        const hashSenha = await bcrypt.hashSync(req.body.senha, 10)
+        
+        const result = await repository.cadastrarUsuario({...req.body, senha: hashSenha})
         if (result.success()) res.ok()
 
         res.badRequest(error(result))

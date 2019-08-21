@@ -1,20 +1,32 @@
 const router = require('express').Router()
 const repository = require('./repository')
 const controller = require('../../service/middlewares/controller')
-const error = require('./service')
 const auth = require('../../service/auth')
+const bcrypt = require('bcrypt')
 
 module.exports = router
 
 router.post('/',
-    controller( async (req, res, next) => {
-        const result = await repository.login(req.body)
-        if (result.success()) {
-            const usuario = await repository.buscarPorEmail(req.body.email)
-            const token = await auth.generateToken(usuario)
-            res.ok({ token, content: usuario })
-        } 
+    controller(async (req, res, next) => {
+        const usuario = await repository.buscarPorEmail(req.body.email)
 
-        res.badRequest(error(result))
+        if (!usuario || !bcrypt.compareSync(req.body.senha, usuario.Senha))
+            res.badRequest('Email ou senha inválidos')
+
+        delete usuario.Senha
+        
+        const token = await auth.generateToken(usuario)
+        res.ok({ token, content: usuario })
+
+    })
+)
+
+router.post('/refresh', 
+    controller(async (req, res, next) => {
+        const token = req.body.token || req.query.token || req.headers['x-access-token']
+        const usuario = await auth.decodeToken(token)
+        const novoToken = await auth.generateToken(usuario)
+
+        res.ok({ token: novoToken, content: usuario })
     })
 )

@@ -166,11 +166,3 @@ RETURNS TABLE(
 $$ LANGUAGE 'plpgsql';
 
 
-CREATE OR REPLACE FUNCTION SP_AtualizarUsuario(
-	pId integer, 
-    pNome varchar(100), 
-    pEmail varchar(100), 
-    pSenha varchar(100)
-)
-
-

@@ -11,7 +11,7 @@ async function generateToken(data) {
 }
 
 async function decodeToken(token) {
-    return await jwt.verify(token)
+    return await jwt.verify(token, global.SALT_KEY)
 }
 
 async function authozire (req, res, next) {
