@@ -2,27 +2,29 @@ import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { SharedModule } from './main/shared/shared.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        SharedModule
-      ],
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
-  }));
+    let fixture;
+    let app;
 
-  const fixture = TestBed.createComponent(AppComponent);
-  const app = fixture.debugElement.componentInstance;
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [
+                RouterTestingModule,
+                SharedModule
+            ],
+            declarations: [
+                AppComponent
+            ],
+        }).compileComponents();
+    }));
 
-  it('Deve criar o component', () => {
-    expect(app).toBeTruthy();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(AppComponent);
+        app = fixture.componentInstance;
+    });
 
+    it('Deve criar o component', () => {
+        expect(app).toBeTruthy();
+    });
 });

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -28,12 +29,14 @@ const material = [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
+        BrowserAnimationsModule,
         ...material
     ],
     exports: [
         FormsModule,
         ReactiveFormsModule,
         CommonModule,
+        BrowserAnimationsModule,
         ...material
     ]
 })

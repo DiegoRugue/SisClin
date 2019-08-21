@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserService } from 'src/app/main/core/user/user.service';
 import { Router } from '@angular/router';
 
@@ -7,15 +7,11 @@ import { Router } from '@angular/router';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
     navMode: string;
 
     constructor() { 
         this.resize(window.outerWidth);
-    }
-
-    ngOnInit() {
-        
     }
 
     resize(width: number): void {
