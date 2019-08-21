@@ -8,10 +8,20 @@ import { Router } from '@angular/router';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+    navMode: string;
 
-    constructor() { }
+    constructor() { 
+        this.resize(window.outerWidth);
+    }
 
     ngOnInit() {
         
+    }
+
+    resize(width: number): void {
+        this.navMode = width > 840 ? 'side' : 'over';
+    }
+
+    click(e) { console.log(e);
     }
 }

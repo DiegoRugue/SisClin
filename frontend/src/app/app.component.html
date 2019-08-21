@@ -1,2 +1,29 @@
+<mat-drawer-container 
+    #container 
+    (window:resize)="resize($event.target.outerWidth)" 
+    class="menu-container"
+>
 
-<router-outlet></router-outlet>
+    <mat-drawer 
+        #sidenav 
+        [mode]="navMode" 
+        opened
+    >
+    </mat-drawer>
+    
+    <mat-drawer-content>
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>
+
+<button 
+    mat-icon-button color="primary" 
+    aria-label="Menu principal"
+    class="menu-button"
+    (click)="sidenav.toggle(); click(sidenav._elementRef.nativeElement.clientWidth)"
+    [style.transform]="sidenav.opened ? ('translateX('+sidenav._elementRef.nativeElement.clientWidth+'px)') : 'translateX(45px)'"
+>
+    <mat-icon [style.transform]=" sidenav.opened ? 'rotateZ(-180deg)' : 'rotateZ(0)'">
+        {{ sidenav.opened ? 'arrow_forward' : 'menu' }}
+    </mat-icon>
+</button>

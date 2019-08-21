@@ -1,19 +1,26 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from 'src/app/main/core/api/api.service';
 import { Router } from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserService {
 
-    public info;
+    public info = {
+        Id: null,
+        Nome: null,
+        token: null,
+        level: null
+    };
 
     public loading = false;
 
     constructor(
         private api: ApiService,
-        private router: Router
+        private router: Router,
+        private snackbar: MatSnackBar
     ) {
         if (!sessionStorage.narevSession) {
             if (this.isAuth()) {
@@ -44,6 +51,7 @@ export class UserService {
                 },
                 error => {
                     this.clearInfo();
+                    this.snackbar.open(error.error, 'Ok');
                     this.router.navigate(['login'])
                 }
             );
@@ -52,22 +60,29 @@ export class UserService {
 
     refreshToken(): void {
         this.api
-            .http('GET', `user/token/${localStorage.narevUserToken}`)
+            .http('POST', `login/refresh/`, {
+                token: localStorage.narevUserToken
+            })
             .subscribe(
                 res => {
                     this.setInfo(res);
                 },
                 error => {
                     this.clearInfo();
+                    this.snackbar.open('Token expirado, faça login novamente.', 'Ok');
                     this.router.navigate(['login'])
                 }
             );
     }
 
     clearInfo(): void {
-        localStorage.removeItem('narevUserToken');
         sessionStorage.removeItem('narevSession');
-        this.info = undefined
+        this.info = {
+            Id: null,
+            Nome: null,
+            token: null,
+            level: null
+        };
     }
 
     setInfo(res: any): void {

@@ -1,0 +1,24 @@
+.menu-container {
+    min-height: 100vh;
+    mat-drawer {
+       min-width: 300px;
+        max-width: 380px;
+        width: 30%;  
+    }
+    mat-drawer-content {
+        padding-top: 50px;
+    }
+}
+
+.menu-button {
+    position: fixed;
+    top: 0;
+    left: -45px;
+    z-index: 1;
+    transition: 280ms transform cubic-bezier(0.4, 0.0, 0.2, 1);
+
+    mat-icon {
+        transition: 280ms transform cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+}
+
