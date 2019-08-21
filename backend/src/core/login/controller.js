@@ -1,7 +1,6 @@
 const router = require('express').Router()
 const repository = require('./repository')
 const controller = require('../../service/middlewares/controller')
-const error = require('./service')
 const auth = require('../../service/auth')
 const bcrypt = require('bcrypt')
 
@@ -19,5 +18,15 @@ router.post('/',
         const token = await auth.generateToken(usuario)
         res.ok({ token, content: usuario })
 
+    })
+)
+
+router.post('/refresh', 
+    controller(async (req, res, next) => {
+        const token = req.body.token || req.query.token || req.headers['x-access-token']
+        const usuario = await auth.decodeToken(token)
+        const novoToken = await auth.generateToken(usuario)
+
+        res.ok({ token: novoToken, content: usuario })
     })
 )
