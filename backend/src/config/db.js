@@ -14,6 +14,7 @@ const cn = {
   port: 5432
 }
 
+// postgres://uwwvjsou:SL85cCPXUbIxgXdPy6pSKzkfbjPOsx_F@raja.db.elephantsql.com:5432/uwwvjsou
 const db = pgp(cn);
 
 module.exports = db
