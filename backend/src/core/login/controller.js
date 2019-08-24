@@ -23,8 +23,9 @@ router.post('/',
 
 router.post('/refresh', 
     controller(async (req, res, next) => {
-        const token = req.body.token || req.query.token || req.headers['x-access-token']
-        const usuario = await auth.decodeToken(token)
+        const token = req.body.token
+        const { Id, Nome, Email } = await auth.decodeToken(token)
+        const usuario = { Id, Nome, Email }
         const novoToken = await auth.generateToken(usuario)
 
         res.ok({ token: novoToken, content: usuario })

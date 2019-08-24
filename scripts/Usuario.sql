@@ -152,12 +152,13 @@ CREATE OR REPLACE FUNCTION SP_BuscarUsuarioPorEmail(pEmail Usuario.Email%TYPE)
 RETURNS TABLE(
 	"Id"     Usuario.Id%TYPE,
     "Nome"   Usuario.Nome%TYPE, 
-    "Email"  Usuario.Email%TYPE
+    "Email"  Usuario.Email%TYPE,
+	"Senha"  Usuario.Senha%TYPE
 ) AS $$
      BEGIN
 
         RETURN QUERY 
-			SELECT u.Id, u.Nome, u.Email 
+			SELECT u.Id, u.Nome, u.Email, u.Senha
 			FROM Usuario AS u
 			WHERE pEmail = u.Email;
 
