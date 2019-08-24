@@ -48,6 +48,7 @@ export class UserService {
             .subscribe(
                 res => {
                     this.setInfo(res);
+                    this.snackbar.open('Autenticado com sucesso '+this.info.Nome, '', {duration: 5000});
                 },
                 error => {
                     this.clearInfo();
@@ -66,6 +67,7 @@ export class UserService {
             .subscribe(
                 res => {
                     this.setInfo(res);
+                    this.snackbar.open('Bem vindo de volta '+this.info.Nome, '', {duration: 5000});
                 },
                 error => {
                     this.clearInfo();
