@@ -53,9 +53,9 @@ export class UserService {
                     this.clearInfo();
                     this.snackbar.open(error.error, 'Ok');
                     this.router.navigate(['login'])
-                }
+                },
+                () => { this.loading = false; }
             );
-        this.loading = false;
     }
 
     refreshToken(): void {
@@ -75,8 +75,14 @@ export class UserService {
             );
     }
 
+    logOut(): void {
+        this.clearInfo();
+        this.router.navigate(['login'])
+    }
+
     clearInfo(): void {
         sessionStorage.removeItem('narevSession');
+        localStorage.removeItem('narevUserToken');
         this.info = {
             Id: null,
             Nome: null,

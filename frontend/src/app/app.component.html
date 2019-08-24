@@ -7,23 +7,48 @@
     <mat-drawer 
         #sidenav 
         [mode]="navMode" 
-        opened
+        [opened]='user.info.Id'
     >
+        <div class="image-container">
+            <img src="assets/narev.png" alt="narev_logo">
+            <div class="divider"></div>
+        </div>
+        
+        <button mat-button (click)="user.logOut()">Sair(temporario)</button>
+
     </mat-drawer>
     
     <mat-drawer-content>
+
+        <mat-toolbar *ngIf="user.info.Id">
+            <mat-toolbar-row 
+                [ngStyle]="{
+                    'padding-left' : sidenav?.opened ? '16px' : '40px'
+                }"
+            >
+                <span>{{ title }}</span>
+            </mat-toolbar-row>
+        </mat-toolbar>
+
         <router-outlet></router-outlet>
+    
     </mat-drawer-content>
 </mat-drawer-container>
 
 <button 
-    mat-icon-button color="primary" 
+    *ngIf="user.info.Id"
+    mat-icon-button 
     aria-label="Menu principal"
     class="menu-button"
-    (click)="sidenav.toggle(); click(sidenav._elementRef.nativeElement.clientWidth)"
-    [style.transform]="sidenav.opened ? ('translateX('+sidenav._elementRef.nativeElement.clientWidth+'px)') : 'translateX(45px)'"
+    matTooltip="Abrir/Fechar Menu"
+    (click)="sidenav?.toggle()"
 >
-    <mat-icon [style.transform]=" sidenav.opened ? 'rotateZ(-180deg)' : 'rotateZ(0)'">
+    <mat-icon 
+        [ngStyle]="{
+            'color' : sidenav?.opened ? 'white' : '#2979ff',
+            'transform' : sidenav?.opened ? 'rotateZ(-180deg)' : 'rotateZ(0)'
+        }"
+    >
         {{ sidenav.opened ? 'arrow_forward' : 'menu' }}
     </mat-icon>
 </button>

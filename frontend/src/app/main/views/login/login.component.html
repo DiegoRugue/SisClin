@@ -13,7 +13,8 @@
                     type="email"
                     [formControl]="emailFormControl"
                     placeholder="Email" 
-                    [(ngModel)]="formData.email">
+                    [(ngModel)]="formData.email"
+                >
                 <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                     Informe um email válido!
                 </mat-error>
@@ -25,12 +26,17 @@
             <mat-form-field>
                 <input 
                     matInput
-                    required
+                    [required]="!user.loading"
+                    #senha="ngModel"
                     [disabled]="user.loading"
                     name="password"
                     placeholder="Senha" 
                     type="password" 
-                    [(ngModel)]="formData.senha">
+                    [(ngModel)]="formData.senha"
+                >
+                <mat-error *ngIf="senha?.errors?.required">
+                    Informe uma senha valida!
+                </mat-error>
             </mat-form-field>
 
             <div class="button-container">

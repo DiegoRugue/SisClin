@@ -1,24 +1,51 @@
 .menu-container {
-    min-height: 100vh;
-    mat-drawer {
-       min-width: 300px;
-        max-width: 380px;
-        width: 30%;  
+  min-height: 100vh;
+
+  mat-drawer {
+    min-width: 300px;
+    max-width: 340px;
+    width: 30%;
+  }
+
+  mat-drawer {
+    background-color: #2979ff;
+
+    .image-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      img {
+        height: 63px;
+      }
+
+      .divider {
+        width: 100%;
+        border-bottom: 1px solid #6d6d6d;
+      }
     }
-    mat-drawer-content {
-        padding-top: 50px;
+  }
+
+  mat-drawer-content {
+    mat-toolbar {
+      box-shadow: 1px 1px 6px #00000085;
+      color: #2979ff;
+
+      span {
+        transition: 280ms padding cubic-bezier(0.4, 0, 0.2, 1);
+      }
     }
+  }
 }
 
 .menu-button {
-    position: fixed;
-    top: 0;
-    left: -45px;
-    z-index: 1;
-    transition: 280ms transform cubic-bezier(0.4, 0.0, 0.2, 1);
+  position: fixed;
+  top: 10px;
+  z-index: 1;
+  transition: 280ms transform cubic-bezier(0.4, 0, 0.2, 1);
 
-    mat-icon {
-        transition: 280ms transform cubic-bezier(0.4, 0.0, 0.2, 1);
-    }
+  mat-icon {
+    color: white;
+    transition: 280ms transform cubic-bezier(0.4, 0, 0.2, 1), 280ms color cubic-bezier(0.4, 0, 0.2, 1);
+  }
 }
-
