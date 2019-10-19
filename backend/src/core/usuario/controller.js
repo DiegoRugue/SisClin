@@ -25,7 +25,7 @@ router.get('/:id',
 
 router.post('/',
     controller(async (req, res, next) => {
-        const hashSenha = await bcrypt.hashSync(req.body.senha, 10)
+        const hashSenha = await bcrypt.hash(req.body.senha, 10)
         
         const result = await repository.cadastrarUsuario({...req.body, senha: hashSenha})
         if (result.success()) res.ok()
