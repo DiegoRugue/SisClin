@@ -27,6 +27,8 @@
   }
 
   mat-drawer-content {
+    height: 100vh;
+
     mat-toolbar {
       box-shadow: 1px 1px 6px #00000085;
       color: #2979ff;

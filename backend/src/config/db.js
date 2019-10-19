@@ -7,10 +7,10 @@ const initOptions = {
 const pgp = require('pg-promise')(initOptions)
 
 const cn = {
-  database: 'sisclin',
-  user: 'postgres',
-  password: 'admin',
-  host: '172.20.0.2',
+  database: 'hkwhmlsd',
+  user: 'hkwhmlsd',
+  password: 'Dtfg60266vAqymlr-mJcu2p4K5nGDdB1',
+  host: 'tuffi.db.elephantsql.com',
   port: 5432
 }
 
